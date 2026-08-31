@@ -34,8 +34,10 @@ export function parseCoachesDoc(text, teams = {}) {
     if (!line) continue;
     const heading = line.match(HEADING_RE);
     if (heading) {
-      slug = validSlugs.has(heading[1]) ? heading[1] : null;
-      if (heading[1] && !slug) console.warn(`coaches doc: unknown team code [${heading[1]}]`);
+      // Keep data for codes not (yet) in config — e.g. spring teams whose
+      // schedule grid isn't connected yet. The app only reads slugs it knows.
+      slug = heading[1];
+      if (!validSlugs.has(slug)) console.warn(`note: [${slug}] not in config yet — keeping its data`);
       continue;
     }
     if (!slug) continue; // instructions / season dividers before or between headings
@@ -54,8 +56,8 @@ export function parseTrophiesDoc(text, teams = {}) {
     if (!line) continue;
     const heading = line.match(HEADING_RE);
     if (heading) {
-      slug = validSlugs.has(heading[1]) ? heading[1] : null;
-      if (heading[1] && !slug) console.warn(`trophy doc: unknown team code [${heading[1]}]`);
+      slug = heading[1];
+      if (!validSlugs.has(slug)) console.warn(`note: [${slug}] not in config yet — keeping its data`);
       continue;
     }
     if (!slug) continue;

@@ -59,8 +59,12 @@ winter: `gvbb, gjvbb, bvbb, bjvbb, bres, jhbbb, jhgbb, bowl, intrk`
 The **Coaches** and **Trophy Case & History** buttons in the embed header are
 fed by two Google Docs the AD maintains — no code involved:
 
-- **WHS Coaches** — `docs.google.com/document/d/1LiJzahIe5vn6qLPXTU_J4LaHB6gy30aPt46MyZZak90`
-- **WHS Trophy Case & History** — `docs.google.com/document/d/1EoOgRMFuXyt977pwfU8GJx0Fg3AhcLriFvojbLcET-w`
+- **WHS Coaches** — `docs.google.com/document/d/1HV0UDvkSgF-lQFwMMuHtho4WcT82CC2difNqvVXrArE`
+- **WHS Trophy Case & History** — `docs.google.com/document/d/1I3kbWi6V5MOF947EymfofCuMJppNx6rWxrgZjkP9yUA`
+
+Both docs cover fall, winter, AND spring teams. Spring codes (`vbsb, jvbsb,
+jhbsb, vsb, jvsb, jhsb, vtrk, jhtrk`) are parsed and stored now; their pop-ups
+go live automatically once a spring season/grid is added to config.js.
 
 Format (instructions are also at the top of each doc):
 

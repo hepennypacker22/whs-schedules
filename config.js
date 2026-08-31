@@ -15,8 +15,8 @@ export const SCHOOL = {
 // data/teaminfo.json (coaches + trophy case pop-ups). Both docs must be
 // shared "Anyone with the link: Viewer".
 export const DOCS = {
-  coaches: "1LiJzahIe5vn6qLPXTU_J4LaHB6gy30aPt46MyZZak90",
-  trophies: "1EoOgRMFuXyt977pwfU8GJx0Fg3AhcLriFvojbLcET-w",
+  coaches: "1HV0UDvkSgF-lQFwMMuHtho4WcT82CC2difNqvVXrArE",
+  trophies: "1I3kbWi6V5MOF947EymfofCuMJppNx6rWxrgZjkP9yUA",
 };
 
 export function docTxtUrl(docId) {

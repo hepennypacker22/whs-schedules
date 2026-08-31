@@ -1,5 +1,5 @@
 {
- "generated": "2026-08-31T19:00:39.153Z",
+ "generated": "2026-08-31T19:13:11.748Z",
  "teams": {
   "gvsoc": {
    "coaches": [
@@ -197,6 +197,395 @@
       "2005",
       "2004",
       "1961"
+     ]
+    }
+   ]
+  },
+  "gvbb": {
+   "coaches": [
+    {
+     "name": "Kabray Rockwood",
+     "role": "Head Coach"
+    },
+    {
+     "name": "Randy Rupp",
+     "role": "Assistant Coach and JV Head Coach"
+    }
+   ],
+   "trophies": [
+    {
+     "label": "State Championships",
+     "years": [
+      "2025",
+      "2023",
+      "2022",
+      "2020 (Co-Champion)",
+      "2018",
+      "2011",
+      "2010",
+      "2007",
+      "1996",
+      "1994"
+     ]
+    },
+    {
+     "label": "State Runner-Up",
+     "years": [
+      "2026",
+      "2024",
+      "2017",
+      "2009",
+      "2002",
+      "1995"
+     ]
+    },
+    {
+     "label": "League Championships",
+     "years": [
+      "2025",
+      "2024",
+      "2023",
+      "2022"
+     ]
+    }
+   ]
+  },
+  "gjvbb": {
+   "coaches": [
+    {
+     "name": "Randy Rupp",
+     "role": "Head Coach"
+    }
+   ]
+  },
+  "bvbb": {
+   "coaches": [
+    {
+     "name": "Larry Dougher",
+     "role": "Head Coach"
+    },
+    {
+     "name": "Win Townsend",
+     "role": "Assistant Coach"
+    },
+    {
+     "name": "Jacob Meagher",
+     "role": "Assistant Coach and JV Head Coach"
+    },
+    {
+     "name": "Robert Slocum",
+     "role": "Assistant Coach and JV-B Head Coach"
+    }
+   ],
+   "trophies": [
+    {
+     "label": "State Championships",
+     "years": [
+      "2018",
+      "2008",
+      "1995",
+      "1994",
+      "1990",
+      "1978"
+     ]
+    },
+    {
+     "label": "State Runner-Up",
+     "years": [
+      "2007",
+      "1998",
+      "1991",
+      "1989",
+      "1959"
+     ]
+    },
+    {
+     "label": "League Championships",
+     "years": [
+      "2018",
+      "2016",
+      "2015",
+      "2014",
+      "2008",
+      "2000",
+      "1998",
+      "1995",
+      "1994",
+      "1990",
+      "1978",
+      "1971",
+      "1960",
+      "1959",
+      "1931",
+      "1930"
+     ]
+    }
+   ]
+  },
+  "bjvbb": {
+   "coaches": [
+    {
+     "name": "Jacob Meagher",
+     "role": "Head Coach"
+    },
+    {
+     "name": "Robert Slocum",
+     "role": "Assistant Coach"
+    }
+   ]
+  },
+  "bres": {
+   "coaches": [
+    {
+     "name": "Robert Slocum",
+     "role": "Head Coach"
+    }
+   ]
+  },
+  "jhbbb": {
+   "coaches": [
+    {
+     "name": "Adrian Attwood",
+     "role": "Head Coach"
+    },
+    {
+     "name": "Ryan Dougher",
+     "role": "Assistant Coach"
+    }
+   ]
+  },
+  "jhgbb": {
+   "coaches": [
+    {
+     "name": "April Lyman",
+     "role": "Head Coach"
+    },
+    {
+     "name": "Kristy Fortin",
+     "role": "Assistant Coach"
+    }
+   ]
+  },
+  "bowl": {
+   "coaches": [
+    {
+     "name": "Cody Warriner",
+     "role": "Head Coach"
+    }
+   ],
+   "trophies": [
+    {
+     "label": "State Championships",
+     "years": [
+      "2016",
+      "2014"
+     ]
+    },
+    {
+     "label": "State Runner-Up",
+     "years": [
+      "2015"
+     ]
+    },
+    {
+     "label": "Individual State Champion",
+     "years": [
+      "2016 Tristan McMullin",
+      "2020 Patrick Kelly"
+     ]
+    },
+    {
+     "label": "State High Season Average",
+     "years": [
+      "2016 Katey Comstock",
+      "2019 Rayce Gilbert"
+     ]
+    },
+    {
+     "label": "School Record High Game",
+     "years": [
+      "2016 Tristan McMullin"
+     ]
+    },
+    {
+     "label": "Team Sportsmanship Award",
+     "years": [
+      "2024"
+     ]
+    },
+    {
+     "label": "Coach of the Year (Steve Bly)",
+     "years": [
+      "2016",
+      "2020",
+      "2024"
+     ]
+    }
+   ]
+  },
+  "intrk": {
+   "coaches": [
+    {
+     "name": "Hannah Claire",
+     "role": "Head Coach"
+    },
+    {
+     "name": "Ian Currie",
+     "role": "Assistant Coach"
+    }
+   ]
+  },
+  "vbsb": {
+   "coaches": [
+    {
+     "name": "Jamie Richardson",
+     "role": "Head Coach"
+    },
+    {
+     "name": "David Weld",
+     "role": "Assistant Coach"
+    },
+    {
+     "name": "Daniel Harrington",
+     "role": "Assistant Coach"
+    }
+   ],
+   "trophies": [
+    {
+     "label": "State Championships",
+     "years": [
+      "2018",
+      "2016",
+      "1975",
+      "1960"
+     ]
+    },
+    {
+     "label": "State Runner-Up",
+     "years": [
+      "2004",
+      "2003",
+      "2002",
+      "1998",
+      "1997",
+      "1977",
+      "1969",
+      "1966",
+      "1959"
+     ]
+    }
+   ]
+  },
+  "jvbsb": {
+   "coaches": [
+    {
+     "name": "Daniel Harrington",
+     "role": "Head Coach"
+    },
+    {
+     "name": "Sabastien Dube",
+     "role": "Assistant Coach"
+    }
+   ]
+  },
+  "jhbsb": {
+   "coaches": [
+    {
+     "name": "Chris Gould",
+     "role": "Head Coach"
+    },
+    {
+     "name": "Sabastien Dube",
+     "role": "Assistant Coach"
+    }
+   ]
+  },
+  "vsb": {
+   "coaches": [
+    {
+     "name": "Wendy Moody",
+     "role": "Head Coach"
+    },
+    {
+     "name": "Angela Dougher",
+     "role": "Assistant Coach"
+    },
+    {
+     "name": "Holly Fernandes",
+     "role": "Assistant Coach"
+    }
+   ],
+   "trophies": [
+    {
+     "label": "State Runner-Up",
+     "years": [
+      "2012",
+      "1981",
+      "1974"
+     ]
+    }
+   ]
+  },
+  "jvsb": {
+   "coaches": [
+    {
+     "name": "Angela Dougher",
+     "role": "Head Coach"
+    }
+   ]
+  },
+  "jhsb": {
+   "coaches": [
+    {
+     "name": "Katelyn Curtis",
+     "role": "Head Coach"
+    },
+    {
+     "name": "Hannah Wood",
+     "role": "Assistant Coach"
+    }
+   ]
+  },
+  "vtrk": {
+   "coaches": [
+    {
+     "name": "Hannah Claire",
+     "role": "Head Coach"
+    },
+    {
+     "name": "Katie Ranney",
+     "role": "Assistant Coach"
+    },
+    {
+     "name": "Ian Currie",
+     "role": "Assistant Coach"
+    }
+   ],
+   "trophies": [
+    {
+     "label": "Boys State Championships",
+     "years": [
+      "2012",
+      "2008",
+      "2007",
+      "2001",
+      "2000",
+      "1999",
+      "1998"
+     ]
+    },
+    {
+     "label": "Boys State Runner-Up",
+     "years": [
+      "2006"
+     ]
+    },
+    {
+     "label": "Girls State Championships",
+     "years": [
+      "2001",
+      "2000",
+      "1999"
      ]
     }
    ]
