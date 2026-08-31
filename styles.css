@@ -59,6 +59,100 @@ html, body {
   color: rgba(255, 255, 255, 0.85);
 }
 
+.hdr-actions { margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap; }
+.hdr-btn {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--gold);
+  border-radius: 3px;
+  padding: 5px 12px;
+  cursor: pointer;
+}
+.hdr-btn:hover { background: var(--gold); color: #1d1d1f; }
+
+/* ---------- modals ---------- */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 25, 18, 0.62);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 24px 14px;
+  z-index: 50;
+}
+.modal {
+  background: #fff;
+  border-radius: 6px;
+  border-top: 4px solid var(--gold);
+  width: 100%;
+  max-width: 440px;
+  max-height: calc(100vh - 48px);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+.modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--green);
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 2px 2px 0 0;
+}
+.modal-title {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.modal-close {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 2px;
+}
+.modal-close:hover { color: var(--gold-bright); }
+.modal-body { padding: 14px 16px 18px; overflow-y: auto; }
+
+.coach-list { list-style: none; }
+.coach-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+}
+.coach-list li:last-child { border-bottom: none; }
+.coach-name { font-weight: 700; }
+.coach-role { font-size: 12px; color: var(--muted); text-align: right; }
+
+.trophy-group { padding: 10px 0; border-bottom: 1px solid var(--line); }
+.trophy-group:last-child { border-bottom: none; }
+.trophy-label { font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--green); }
+.trophy-count { color: var(--muted); font-weight: 600; }
+.trophy-years { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 5px; }
+.trophy-year {
+  font-size: 12px;
+  font-weight: 700;
+  color: #7a5605;
+  background: rgba(200, 136, 10, 0.14);
+  border: 1px solid rgba(200, 136, 10, 0.4);
+  border-radius: 3px;
+  padding: 2px 8px;
+}
+.history-text { margin-top: 10px; font-size: 13px; color: var(--ink); }
+
 /* ---------- record strip ---------- */
 
 .record-strip {

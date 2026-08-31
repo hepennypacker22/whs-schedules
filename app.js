@@ -1,6 +1,7 @@
 // WHS Schedules — fetch grid CSV live, merge MaxPreps scores, render.
 import { SCHOOL, SEASONS, csvUrl, findTeam } from "./config.js";
 import { parseGrid, mergeScores, computeRecord, dateKey } from "./parser.js";
+import { TEAM_INFO } from "./teaminfo.js";
 
 const app = document.getElementById("app");
 const params = new URLSearchParams(location.search);
@@ -54,11 +55,18 @@ async function renderTeam(slug) {
   const today = new Date(); today.setHours(0, 0, 0, 0);
   const nextGame = games.find((g) => g.date >= today && !g.result && g.status !== "cancelled");
 
+  const info = TEAM_INFO[team.slug] || {};
+  const infoButtons =
+    (info.coaches?.length ? `<button class="hdr-btn" data-modal="coaches">Coaches</button>` : "") +
+    (info.trophies?.length || info.history
+      ? `<button class="hdr-btn" data-modal="trophies">Trophy Case &amp; History</button>` : "");
+
   let html = `
   <header class="sched-header">
     <div class="eyebrow">${esc(SCHOOL.name)} ${esc(SCHOOL.mascot)} &bull; ${esc(season.label)}</div>
     <h1>${esc(team.name)} Schedule</h1>
     <div class="sub">${esc(SCHOOL.town)}</div>
+    ${infoButtons ? `<div class="hdr-actions">${infoButtons}</div>` : ""}
   </header>
   <div class="record-strip" role="group" aria-label="Season record">
     ${recordCell("Overall", `${record.w}-${record.l}${record.t ? "-" + record.t : ""}`)}
@@ -92,6 +100,11 @@ async function renderTeam(slug) {
 
   app.innerHTML = html;
 
+  // Coaches / Trophy Case pop-ups
+  app.querySelectorAll(".hdr-btn").forEach((btn) => {
+    btn.addEventListener("click", () => openModal(btn.dataset.modal, team, info));
+  });
+
   // Home/Away filter
   const rows = app.querySelectorAll(".game-row, .note-row");
   app.querySelectorAll(".filter-btn").forEach((btn) => {
@@ -107,6 +120,54 @@ async function renderTeam(slug) {
   });
 
   postHeight();
+}
+
+// ------------------------------------------------------------------- modals
+
+function openModal(kind, team, info) {
+  closeModal();
+  let title, body;
+  if (kind === "coaches") {
+    title = "Coaches";
+    body = `<ul class="coach-list">${info.coaches
+      .map((c) => `<li><span class="coach-name">${esc(c.name)}</span><span class="coach-role">${esc(c.role)}</span></li>`)
+      .join("")}</ul>`;
+  } else {
+    title = "Trophy Case & History";
+    body =
+      (info.trophies || [])
+        .map((t) => `<div class="trophy-group">
+          <div class="trophy-label">🏆 ${esc(t.label)} <span class="trophy-count">(${t.years.length})</span></div>
+          <div class="trophy-years">${t.years.map((y) => `<span class="trophy-year">${esc(y)}</span>`).join("")}</div>
+        </div>`)
+        .join("") +
+      (info.history ? `<p class="history-text">${esc(info.history)}</p>` : "");
+  }
+
+  const overlay = document.createElement("div");
+  overlay.className = "modal-overlay";
+  overlay.innerHTML = `
+    <div class="modal" role="dialog" aria-modal="true" aria-label="${esc(team.name)} ${esc(title)}">
+      <div class="modal-head">
+        <span class="modal-title">${esc(title)}</span>
+        <button class="modal-close" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">${body}</div>
+    </div>`;
+  overlay.addEventListener("click", (e) => { if (e.target === overlay) closeModal(); });
+  overlay.querySelector(".modal-close").addEventListener("click", closeModal);
+  document.addEventListener("keydown", escToClose);
+  document.body.appendChild(overlay);
+  overlay.querySelector(".modal-close").focus();
+}
+
+function closeModal() {
+  document.querySelector(".modal-overlay")?.remove();
+  document.removeEventListener("keydown", escToClose);
+}
+
+function escToClose(e) {
+  if (e.key === "Escape") closeModal();
 }
 
 function recordCell(label, value) {

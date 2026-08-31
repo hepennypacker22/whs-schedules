@@ -54,6 +54,14 @@ from the [landing page](https://hepennypacker22.github.io/whs-schedules/), e.g.:
 Team slugs — fall: `gvsoc, fh, jhfh, vfb, jvfb, jhfb, golf, xc` ·
 winter: `gvbb, gjvbb, bvbb, bjvbb, bres, jhbbb, jhgbb, bowl, intrk`
 
+## Coaches & Trophy Case pop-ups
+
+Teams with an entry in [teaminfo.js](teaminfo.js) get **Coaches** and
+**Trophy Case & History** buttons in the embed header that open pop-ups —
+so the SchoolBlocks page itself only needs the team photo and the iframe.
+To update (new coach, new banner year): edit `teaminfo.js` on GitHub
+(pencil icon), commit, and every embed updates within a couple of minutes.
+
 ## Adding a new season
 
 1. AD creates the new grid spreadsheet (same format: Day | Date | one column per team).
