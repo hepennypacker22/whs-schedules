@@ -54,13 +54,28 @@ from the [landing page](https://hepennypacker22.github.io/whs-schedules/), e.g.:
 Team slugs — fall: `gvsoc, fh, jhfh, vfb, jvfb, jhfb, golf, xc` ·
 winter: `gvbb, gjvbb, bvbb, bjvbb, bres, jhbbb, jhgbb, bowl, intrk`
 
-## Coaches & Trophy Case pop-ups
+## Coaches & Trophy Case pop-ups (edited in Google Docs)
 
-Teams with an entry in [teaminfo.js](teaminfo.js) get **Coaches** and
-**Trophy Case & History** buttons in the embed header that open pop-ups —
-so the SchoolBlocks page itself only needs the team photo and the iframe.
-To update (new coach, new banner year): edit `teaminfo.js` on GitHub
-(pencil icon), commit, and every embed updates within a couple of minutes.
+The **Coaches** and **Trophy Case & History** buttons in the embed header are
+fed by two Google Docs the AD maintains — no code involved:
+
+- **WHS Coaches** — `docs.google.com/document/d/1LiJzahIe5vn6qLPXTU_J4LaHB6gy30aPt46MyZZak90`
+- **WHS Trophy Case & History** — `docs.google.com/document/d/1EoOgRMFuXyt977pwfU8GJx0Fg3AhcLriFvojbLcET-w`
+
+Format (instructions are also at the top of each doc):
+
+- Team headings end with the team's `[code]` (e.g. `Football - Varsity [vfb]`)
+  — keep those lines as they are.
+- Coaches doc: one coach per line — `Name - Role`.
+- Trophy doc: one category per line — `Category: year, year, year`, plus an
+  optional `History: ...` line of free text.
+- Teams with nothing listed simply show no buttons. Malformed lines are
+  ignored, never an error.
+
+The same scheduled Action that syncs MaxPreps scores parses both docs into
+[data/teaminfo.json](data/teaminfo.json) every 3 hours, so doc edits appear
+on the site within ~3 hours. Both docs must be shared
+**"Anyone with the link: Viewer"** (read-only, like the schedule grids).
 
 ## Adding a new season
 

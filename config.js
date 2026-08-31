@@ -11,6 +11,18 @@ export const SCHOOL = {
   gold: "#C8880A",
 };
 
+// Google Docs the AD maintains; the scheduled sync parses these into
+// data/teaminfo.json (coaches + trophy case pop-ups). Both docs must be
+// shared "Anyone with the link: Viewer".
+export const DOCS = {
+  coaches: "1LiJzahIe5vn6qLPXTU_J4LaHB6gy30aPt46MyZZak90",
+  trophies: "1EoOgRMFuXyt977pwfU8GJx0Fg3AhcLriFvojbLcET-w",
+};
+
+export function docTxtUrl(docId) {
+  return `https://docs.google.com/document/d/${docId}/export?format=txt`;
+}
+
 // Each team:
 //   slug     — used in the embed URL (?team=vfb)
 //   header   — column header in the sheet grid, matched after normalization

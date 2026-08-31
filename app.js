@@ -1,7 +1,6 @@
 // WHS Schedules — fetch grid CSV live, merge MaxPreps scores, render.
 import { SCHOOL, SEASONS, csvUrl, findTeam } from "./config.js";
 import { parseGrid, mergeScores, computeRecord, dateKey } from "./parser.js";
-import { TEAM_INFO } from "./teaminfo.js";
 
 const app = document.getElementById("app");
 const params = new URLSearchParams(location.search);
@@ -14,13 +13,17 @@ function esc(s) {
   return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 }
 
-async function fetchScores() {
+async function fetchJson(path) {
   try {
-    const res = await fetch(`data/scores.json?cb=${Math.floor(Date.now() / 300000)}`);
+    const res = await fetch(`${path}?cb=${Math.floor(Date.now() / 300000)}`);
     if (!res.ok) return null;
     return await res.json();
   } catch { return null; }
 }
+
+const fetchScores = () => fetchJson("data/scores.json");
+// Coaches & trophy case, synced from the AD's Google Docs by the scheduled Action.
+const fetchTeamInfo = () => fetchJson("data/teaminfo.json");
 
 // ---------------------------------------------------------------- team page
 
@@ -43,7 +46,7 @@ async function renderTeam(slug) {
     return;
   }
 
-  const scores = await fetchScores();
+  const [scores, teamInfo] = await Promise.all([fetchScores(), fetchTeamInfo()]);
   const { teams } = parseGrid(csv, season);
   const entries = teams[team.slug] || [];
   mergeScores(entries, scores?.teams?.[team.slug] || null);
@@ -55,7 +58,7 @@ async function renderTeam(slug) {
   const today = new Date(); today.setHours(0, 0, 0, 0);
   const nextGame = games.find((g) => g.date >= today && !g.result && g.status !== "cancelled");
 
-  const info = TEAM_INFO[team.slug] || {};
+  const info = teamInfo?.teams?.[team.slug] || {};
   const infoButtons =
     (info.coaches?.length ? `<button class="hdr-btn" data-modal="coaches">Coaches</button>` : "") +
     (info.trophies?.length || info.history
