@@ -38,3 +38,8 @@ jobs:
           else
             echo "No changes."
           fi
+      - name: Grid column health check
+        # Fails the run (visible red X, no effect on the commits above) when a
+        # configured team column can't be found in a grid — e.g. a header was
+        # renamed. Add the new spelling to that team's aliases in config.js.
+        run: node scripts/test-parser.mjs

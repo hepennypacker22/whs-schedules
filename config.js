@@ -41,8 +41,14 @@ export const SEASONS = [
     teams: [
       { slug: "gvsoc", short: "Girls Soccer", header: "GVarSoc", name: "Girls Soccer — Varsity",
         maxpreps: "/vt/windsor/windsor-yellowjackets/soccer/girls/fall/26-27/schedule/" },
+      // aliases: other header spellings this column has carried. "B&B" is
+      // temporary — the header cell was accidentally overwritten with an
+      // opponent name on 8/31/2026; remove once it's restored to "Var/JV FH".
       { slug: "fh", short: "Field Hockey", header: "Var/JV FH", name: "Field Hockey — Varsity/JV",
+        aliases: ["Var FH", "FH", "Field Hockey", "B&B"],
         maxpreps: "/vt/windsor/windsor-yellowjackets/field-hockey/fall/26-27/schedule/" },
+      { slug: "clubsoc", short: "Club Soccer", header: "Club Soocer", name: "Club Soccer",
+        aliases: ["Club Soccer"] },
       { slug: "jhfh", short: "JH Field Hockey", header: "JH FH", name: "Field Hockey — Junior High" },
       { slug: "vfb", short: "Football", header: "VarFB", name: "Football — Varsity",
         maxpreps: "/vt/windsor/windsor-yellowjackets/football/fall/26-27/schedule/" },

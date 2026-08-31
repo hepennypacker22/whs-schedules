@@ -148,8 +148,8 @@ export function parseGrid(csvText, season) {
   const headerRow = rows[0].map(normalizeHeader);
   const columns = {}; // slug -> column index
   for (const team of season.teams) {
-    const want = normalizeHeader(team.header);
-    const idx = headerRow.findIndex((h) => h === want);
+    const wants = [team.header, ...(team.aliases || [])].map(normalizeHeader);
+    const idx = headerRow.findIndex((h) => wants.includes(h));
     if (idx === -1) {
       warnings.push(`column not found for ${team.slug} ("${team.header}")`);
       continue;
