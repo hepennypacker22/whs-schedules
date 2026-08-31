@@ -7,6 +7,19 @@
 // commit, and the embeds update within a couple of minutes.
 
 export const TEAM_INFO = {
+  gvsoc: {
+    coaches: [
+      { name: "Wendy Moody", role: "Co-Head Coach" },
+      { name: "Jennifer Rupp", role: "Co-Head Coach" },
+    ],
+    trophies: [
+      { label: "State Championships", years: ["2024"] },
+      { label: "State Runner-Up", years: ["2023", "2003"] },
+      { label: "League Championships", years: ["2025", "2024", "2023"] },
+    ],
+    history: "First varsity season: 1999.",
+  },
+
   fh: {
     coaches: [
       { name: "Blake Holden", role: "Head Coach" },
@@ -31,6 +44,39 @@ export const TEAM_INFO = {
     trophies: [
       { label: "State Championships", years: ["2023", "2022", "2021", "2017", "2016", "2009", "1999"] },
       { label: "State Runner-Up", years: ["2011", "2010", "2008", "2007", "2001", "1979", "1975", "1971"] },
+    ],
+  },
+
+  jhfh: {
+    coaches: [
+      { name: "Kaitlyn Gould", role: "Head Coach" },
+      { name: "Alyssa Slocum", role: "Assistant Coach" },
+      { name: "Kierstin Carvalho", role: "Assistant Coach" },
+    ],
+  },
+
+  jvfb: {
+    coaches: [
+      { name: "Jamie Perry", role: "Head Coach" },
+      { name: "Zane Burke", role: "Assistant Coach" },
+    ],
+  },
+
+  jhfb: {
+    coaches: [
+      { name: "Randy Shambo", role: "Head Coach" },
+      { name: "Chris Gould", role: "Assistant Coach" },
+    ],
+  },
+
+  golf: {
+    coaches: [{ name: "Pat Allen", role: "Head Coach" }],
+  },
+
+  xc: {
+    coaches: [{ name: "Katie Ranney", role: "Head Coach" }],
+    trophies: [
+      { label: "State Championships", years: ["2005", "2004", "1961"] },
     ],
   },
 };
