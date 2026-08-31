@@ -1,0 +1,36 @@
+name: Sync MaxPreps scores
+
+on:
+  schedule:
+    # Every 3 hours (UTC). GitHub may delay scheduled runs slightly.
+    - cron: "17 */3 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: scores
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Fetch scores from MaxPreps
+        run: node scripts/fetch-scores.mjs
+      - name: Commit if changed
+        run: |
+          if ! git diff --quiet data/scores.json 2>/dev/null; then
+            git config user.name "whs-schedules-bot"
+            git config user.email "actions@users.noreply.github.com"
+            git add data/scores.json
+            git commit -m "Update scores from MaxPreps"
+            git push
+          else
+            echo "No changes."
+          fi

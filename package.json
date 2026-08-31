@@ -1,0 +1,11 @@
+{
+  "name": "whs-schedules",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Windsor High School athletics schedules - Google Sheets grid to Sidearm-style embeddable pages",
+  "scripts": {
+    "fetch-scores": "node scripts/fetch-scores.mjs",
+    "test": "node scripts/test-parser.mjs"
+  }
+}

@@ -1,0 +1,338 @@
+/* WHS Schedules — Sidearm-style theme in Windsor green & gold. */
+
+:root {
+  --green: #005B34;
+  --green-dark: #004326;
+  --gold: #C8880A;
+  --gold-bright: #E6A417;
+  --ink: #1d1d1f;
+  --muted: #6b7075;
+  --line: #e3e5e7;
+  --bg: #ffffff;
+  --bg-alt: #f6f7f8;
+  --win: #1a7f37;
+  --loss: #c62828;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.loading, .error {
+  padding: 2rem;
+  text-align: center;
+  color: var(--muted);
+}
+.error { color: #a33; }
+
+/* ---------- header band ---------- */
+
+.sched-header {
+  background: linear-gradient(115deg, var(--green-dark) 0%, var(--green) 55%, #0a6b41 100%);
+  color: #fff;
+  padding: 18px 20px 16px;
+  border-bottom: 4px solid var(--gold);
+}
+.sched-header .eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-bright);
+}
+.sched-header h1 {
+  font-size: 24px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin-top: 2px;
+}
+.sched-header .sub {
+  margin-top: 2px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* ---------- record strip ---------- */
+
+.record-strip {
+  display: flex;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+}
+.record-cell {
+  flex: 1;
+  text-align: center;
+  padding: 10px 4px 8px;
+  border-right: 1px solid var(--line);
+}
+.record-cell:last-child { border-right: none; }
+.record-cell .label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.record-cell .value {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--green);
+  letter-spacing: 0.04em;
+}
+
+/* ---------- controls ---------- */
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 10px 12px;
+  background: var(--bg-alt);
+  border-bottom: 1px solid var(--line);
+}
+.filter-group { display: flex; gap: 0; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; background: #fff; }
+.filter-btn {
+  border: none;
+  background: #fff;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+}
+.filter-btn + .filter-btn { border-left: 1px solid var(--line); }
+.filter-btn.active { background: var(--green); color: #fff; }
+.controls .spacer { flex: 1; }
+.print-link {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--green);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* ---------- schedule list ---------- */
+
+.game-list { list-style: none; }
+
+.game-row {
+  display: grid;
+  grid-template-columns: 86px 44px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+}
+.game-row:nth-child(even) { background: var(--bg-alt); }
+
+.game-row.past { opacity: 0.82; }
+.game-row.next-game {
+  border-left: 4px solid var(--gold);
+  padding-left: 10px;
+  background: #fdf6e7;
+}
+.next-tag {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #fff;
+  background: var(--gold);
+  border-radius: 3px;
+  padding: 1px 5px;
+  margin-left: 6px;
+  vertical-align: 2px;
+}
+
+.date-block { text-align: center; }
+.date-block .md {
+  font-size: 15px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.date-block .dow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.ha-badge {
+  display: inline-block;
+  width: 34px;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 3px 0;
+  border-radius: 3px;
+  color: #fff;
+  background: var(--green);
+}
+.ha-badge.away { background: #555b60; }
+
+.opp-block { min-width: 0; }
+.opp-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.opp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 1px;
+}
+.game-note-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--green);
+  background: rgba(0, 91, 52, 0.08);
+  border-radius: 3px;
+  padding: 1px 6px;
+  margin-right: 6px;
+}
+.squad-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--muted);
+  border-radius: 3px;
+  padding: 1px 6px;
+  margin-right: 6px;
+}
+
+.status-block { text-align: right; white-space: nowrap; }
+.time { font-size: 15px; font-weight: 700; color: var(--green); }
+.result { font-size: 16px; font-weight: 800; }
+.result .letter { display: inline-block; width: 20px; }
+.result.W .letter { color: var(--win); }
+.result.L .letter { color: #c62828; }
+.result.T .letter { color: var(--muted); }
+.status-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  background: #c62828;
+  border-radius: 3px;
+  padding: 3px 8px;
+}
+.status-badge.delayed { background: var(--gold); }
+.struck { text-decoration: line-through; color: var(--muted); font-weight: 600; }
+
+/* note rows (Labor Day, 1st Practice, …) */
+.note-row {
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-alt);
+  display: grid;
+  grid-template-columns: 86px 1fr;
+  gap: 12px;
+  align-items: center;
+}
+.note-row .note-text {
+  font-size: 12px;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--muted);
+}
+
+.empty-msg { padding: 2rem; text-align: center; color: var(--muted); font-style: italic; }
+
+.footer-note {
+  padding: 10px 14px 16px;
+  font-size: 10px;
+  color: #a9adb1;
+  text-align: center;
+}
+.footer-note a { color: inherit; }
+
+/* ---------- landing page (no ?team=) ---------- */
+
+.landing { padding: 20px; max-width: 760px; margin: 0 auto; }
+.landing h2 { color: var(--green); margin: 18px 0 8px; font-size: 17px; text-transform: uppercase; letter-spacing: 0.04em; }
+.landing table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.landing td, .landing th { padding: 7px 8px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.landing code {
+  font-size: 11px;
+  background: var(--bg-alt);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 2px 5px;
+  word-break: break-all;
+}
+.copy-btn {
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--green);
+  border: none;
+  border-radius: 3px;
+  padding: 4px 9px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.copy-btn:active { background: var(--gold); }
+
+/* ---------- mobile: stacked cards (Sidearm-style) ---------- */
+
+@media (max-width: 640px) {
+  .game-row {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "date   status"
+      "opp    status";
+    row-gap: 2px;
+    padding: 10px 12px;
+  }
+  .game-row.next-game { padding-left: 8px; }
+  .game-row .date-block { grid-area: date; }
+  .date-block { text-align: left; display: flex; gap: 6px; align-items: baseline; }
+  .note-row { grid-template-columns: 96px 1fr; }
+  .date-block .md { font-size: 12px; }
+  .date-block .dow { font-size: 10px; }
+  .ha-badge { display: none; }
+  .opp-block { grid-area: opp; }
+  .opp-name { font-size: 15px; }
+  .opp-name .vsat {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-right: 2px;
+  }
+  .status-block { grid-area: status; align-self: center; }
+  .record-cell .value { font-size: 16px; }
+  .record-cell { padding: 8px 2px 6px; }
+  .sched-header h1 { font-size: 19px; }
+}
+@media (min-width: 641px) {
+  .opp-name .vsat { display: none; }
+}
+
+/* ---------- print ---------- */
+
+@media print {
+  .controls, .footer-note { display: none; }
+  .sched-header { background: none; color: #000; border-bottom: 2px solid #000; }
+  .sched-header .eyebrow, .sched-header .sub { color: #444; }
+  .game-row, .note-row { break-inside: avoid; }
+}
