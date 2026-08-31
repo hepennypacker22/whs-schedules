@@ -54,6 +54,16 @@ from the [landing page](https://hepennypacker22.github.io/whs-schedules/), e.g.:
 Team slugs — fall: `gvsoc, fh, jhfh, vfb, jvfb, jhfb, golf, xc` ·
 winter: `gvbb, gjvbb, bvbb, bjvbb, bres, jhbbb, jhgbb, bowl, intrk`
 
+**This Week widget** (for the main Athletics page): `?view=week` shows every
+team's games for the current week grouped by day, today highlighted, with
+Prev/Next week arrows:
+
+```html
+<iframe src="https://hepennypacker22.github.io/whs-schedules/?view=week"
+        style="width:100%;height:820px;border:none;"
+        title="Windsor Athletics — This Week" loading="lazy"></iframe>
+```
+
 ## Coaches & Trophy Case pop-ups (edited in Google Docs)
 
 The **Coaches** and **Trophy Case & History** buttons in the embed header are

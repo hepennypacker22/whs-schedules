@@ -243,6 +243,14 @@ function renderLanding() {
   </header>
   <div class="landing">`;
 
+  const weekUrl = `${base}?view=week`;
+  const weekIframe = `<iframe src="${weekUrl}" style="width:100%;height:820px;border:none;" title="${esc(SCHOOL.name)} Athletics — This Week" loading="lazy"></iframe>`;
+  html += `<h2>All Teams</h2><table><tbody><tr>
+    <td><a href="?view=week"><strong>This Week (all teams, today highlighted)</strong></a></td>
+    <td><code>${esc(weekIframe)}</code></td>
+    <td><button class="copy-btn" data-embed="${esc(weekIframe)}">Copy embed</button></td>
+  </tr></tbody></table>`;
+
   for (const season of SEASONS) {
     html += `<h2>${esc(season.label)}</h2><table><tbody>`;
     for (const t of season.teams) {
@@ -280,7 +288,124 @@ function postHeight() {
 }
 window.addEventListener("resize", postHeight);
 
+// ----------------------------------------------------------------- week view
+
+// All teams' games for one week, today highlighted. Embedded on the main
+// Athletics page (?view=week).
+async function renderWeek() {
+  document.title = "This Week — Windsor Athletics";
+  let allGames = [];
+  try {
+    const [scores, ...csvs] = await Promise.all([
+      fetchScores(),
+      ...SEASONS.map((s) => fetch(csvUrl(s)).then((r) => (r.ok ? r.text() : null))),
+    ]);
+    SEASONS.forEach((season, i) => {
+      if (!csvs[i]) return;
+      const { teams } = parseGrid(csvs[i], season);
+      for (const team of season.teams) {
+        const entries = (teams[team.slug] || []).filter((e) => e.kind === "game");
+        mergeScores(entries, scores?.teams?.[team.slug] || null);
+        for (const g of entries) allGames.push({ ...g, team });
+      }
+    });
+  } catch (err) {
+    app.innerHTML = `<div class="error">Couldn't load the schedule right now. Please try again in a minute.</div>`;
+    console.error("week view fetch failed", err);
+    return;
+  }
+
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  let offset = parseInt(params.get("w"), 10) || 0;
+
+  const draw = () => {
+    // week starts Monday
+    const monday = new Date(today);
+    monday.setDate(today.getDate() - ((today.getDay() + 6) % 7) + offset * 7);
+    const days = Array.from({ length: 7 }, (_, i) => {
+      const d = new Date(monday);
+      d.setDate(monday.getDate() + i);
+      return d;
+    });
+    const rangeLabel = `${MONTHS[days[0].getMonth()]} ${days[0].getDate()} – ${MONTHS[days[6].getMonth()]} ${days[6].getDate()}`;
+
+    let html = `
+    <header class="sched-header">
+      <div class="eyebrow">${esc(SCHOOL.name)} ${esc(SCHOOL.mascot)} Athletics</div>
+      <h1>This Week</h1>
+      <div class="sub">${esc(SCHOOL.town)}</div>
+    </header>
+    <div class="controls week-nav">
+      <button class="filter-btn" data-nav="-1" aria-label="Previous week">&lsaquo; Prev</button>
+      <span class="week-range">${rangeLabel}${offset ? "" : " &bull; this week"}</span>
+      <button class="filter-btn" data-nav="1" aria-label="Next week">Next &rsaquo;</button>
+      ${offset ? `<button class="filter-btn" data-nav="0">Today</button>` : ""}
+    </div>`;
+
+    for (const day of days) {
+      const isToday = day.getTime() === today.getTime();
+      const games = allGames
+        .filter((g) => g.date.getTime() === day.getTime())
+        .sort((a, b) => timeSortKey(a.time) - timeSortKey(b.time));
+      html += `<section class="week-day${isToday ? " today" : ""}">
+        <div class="week-day-head">
+          <span class="wd-name">${["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][day.getDay()]}</span>
+          <span class="wd-date">${MONTHS[day.getMonth()]} ${day.getDate()}</span>
+          ${isToday ? '<span class="next-tag">Today</span>' : ""}
+        </div>`;
+      if (!games.length) {
+        html += `<div class="week-empty">No games</div>`;
+      } else {
+        for (const g of games) {
+          let right;
+          if (g.status === "postponed" || g.status === "cancelled") {
+            right = `<span class="status-badge">${g.status === "postponed" ? "Postponed" : "Cancelled"}</span>`;
+          } else if (g.status === "delayed") {
+            right = `<span class="status-badge delayed">Delayed</span>`;
+          } else if (g.result) {
+            right = `<span class="result ${esc(g.result.letter)}"><span class="letter">${esc(g.result.letter)}</span> ${g.result.us}-${g.result.them}</span>`;
+          } else {
+            right = `<span class="time">${esc(g.time || "TBD")}</span>`;
+          }
+          html += `<div class="week-game">
+            <a class="team-chip" href="?team=${g.team.slug}" target="_top">${esc(g.team.short || g.team.name)}</a>
+            <span class="wg-opp">${g.away ? "at" : "vs"} <strong>${esc(g.opponent)}</strong>${g.venue ? ` <span class="wg-venue">· ${esc(g.venue)}</span>` : ""}</span>
+            <span class="wg-right">${right}</span>
+          </div>`;
+        }
+      }
+      html += `</section>`;
+    }
+    html += `<div class="footer-note">Schedule updates live from the WHS Athletics grid.</div>`;
+    app.innerHTML = html;
+    app.querySelectorAll("[data-nav]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const n = +btn.dataset.nav;
+        offset = n === 0 ? 0 : offset + n;
+        draw();
+      });
+    });
+    postHeight();
+  };
+  draw();
+}
+
+// "4:30PM" / "10:00" / "TBD" -> sortable minutes. Bare times: 8–11 read as
+// AM (morning meets), 12 and 1–7 as PM (afternoon games). TBD sorts last.
+function timeSortKey(t) {
+  if (!t || /TB[DA]/.test(t)) return 24 * 60 + 1;
+  const m = t.match(/(\d{1,2}):(\d{2})\s*([AP])?/i);
+  if (!m) return 24 * 60;
+  let h = +m[1];
+  const mer = m[3] ? m[3].toUpperCase() : null;
+  if (mer === "P" && h !== 12) h += 12;
+  else if (mer === "A" && h === 12) h = 0;
+  else if (!mer && h <= 7) h += 12;
+  return h * 60 + +m[2];
+}
+
 // ---------------------------------------------------------------------- main
 
-if (teamSlug) renderTeam(teamSlug);
+if (params.get("view") === "week") renderWeek();
+else if (teamSlug) renderTeam(teamSlug);
 else renderLanding();
