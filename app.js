@@ -341,7 +341,6 @@ async function renderWeek() {
     <header class="sched-header">
       <div class="eyebrow">${esc(SCHOOL.name)} ${esc(SCHOOL.mascot)} Athletics</div>
       <h1>This Week</h1>
-      <div class="sub">${esc(SCHOOL.town)}</div>
     </header>
     <div class="controls week-nav">
       <button class="filter-btn" data-nav="-1" aria-label="Previous week">&lsaquo; Prev</button>
