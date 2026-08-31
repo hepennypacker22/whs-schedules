@@ -338,9 +338,8 @@ async function renderWeek() {
     const rangeLabel = `${MONTHS[days[0].getMonth()]} ${days[0].getDate()} – ${MONTHS[days[6].getMonth()]} ${days[6].getDate()}`;
 
     let html = `
-    <header class="sched-header">
+    <header class="sched-header sched-header-slim">
       <div class="eyebrow">${esc(SCHOOL.name)} ${esc(SCHOOL.mascot)} Athletics</div>
-      <h1>This Week</h1>
     </header>
     <div class="controls week-nav">
       <button class="filter-btn" data-nav="-1" aria-label="Previous week">&lsaquo; Prev</button>

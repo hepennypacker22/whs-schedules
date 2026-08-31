@@ -153,6 +153,8 @@ html, body {
 }
 .history-text { margin-top: 10px; font-size: 13px; color: var(--ink); }
 
+.sched-header-slim { padding: 10px 20px 9px; }
+
 /* ---------- record strip ---------- */
 
 .record-strip {
