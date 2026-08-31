@@ -88,10 +88,17 @@ async function renderTeam(slug) {
   </div>
   <ul class="game-list">`;
 
-  if (!entries.length) {
+  // Note cells (merged banners like "Theater Performances", "1st Practice",
+  // "OPEN") are not shown — the page lists games only. The sheet's merged
+  // full-row notes land in the first team column of the CSV, so rendering
+  // them would wrongly pin them to that one team anyway. Add &notes=1 to
+  // the URL to preview what's being skipped.
+  const showNotes = params.get("notes") === "1";
+  const visible = showNotes ? entries : games;
+  if (!visible.length) {
     html += `</ul><div class="empty-msg">Schedule coming soon — check back!</div>`;
   } else {
-    for (const e of entries) {
+    for (const e of visible) {
       html += e.kind === "game" ? gameRow(e, e === nextGame, today) : noteRow(e);
     }
     html += `</ul>`;

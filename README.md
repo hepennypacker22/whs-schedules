@@ -36,7 +36,7 @@ through. To postpone/cancel a game, type it into the cell:
 | `Cancelled - Woodstock 4:30PM` | red **CANCELLED** badge, opponent struck through |
 | `Woodstock 4:30 W 21-14` | result (only needed where MaxPreps has no score) |
 | `Sr. Night Woodstock 7:00PM` | game with a "Sr. Night" tag |
-| anything else (`1st Practice`, `OPEN`, …) | an italic note row — never an error |
+| anything else (`1st Practice`, `OPEN`, merged banners, …) | not shown — the page lists games only (add `&notes=1` to the embed URL to preview skipped cells) |
 
 Recognized status words: `PPD`, `Postponed`, `Cancelled`, `Canceled`, `Delayed`, `Rescheduled`.
 
