@@ -46,10 +46,15 @@ On the team's page, add an **HTML Block** and paste that team's iframe snippet
 from the [landing page](https://hepennypacker22.github.io/whs-schedules/), e.g.:
 
 ```html
-<iframe src="https://hepennypacker22.github.io/whs-schedules/?team=vfb"
+<iframe src="https://hepennypacker22.github.io/whs-schedules/t/vfb/"
         style="width:100%;height:900px;border:none;"
         title="Windsor Football Schedule" loading="lazy"></iframe>
 ```
+
+Use the **path form** (`/t/<slug>/`, `/week/`) in embeds — SchoolBlocks strips
+query strings from iframe URLs, so `?team=vfb` breaks there. The query form
+still works in a normal browser. After adding teams in config.js, run
+`node scripts/gen-pages.mjs` to regenerate the path pages.
 
 Team slugs — fall: `gvsoc, fh, jhfh, vfb, jvfb, jhfb, golf, xc` ·
 winter: `gvbb, gjvbb, bvbb, bjvbb, bres, jhbbb, jhgbb, bowl, intrk`
@@ -59,7 +64,7 @@ team's games for the current week grouped by day, today highlighted, with
 Prev/Next week arrows:
 
 ```html
-<iframe src="https://hepennypacker22.github.io/whs-schedules/?view=week"
+<iframe src="https://hepennypacker22.github.io/whs-schedules/week/"
         style="width:100%;height:820px;border:none;"
         title="Windsor Athletics — This Week" loading="lazy"></iframe>
 ```

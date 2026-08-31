@@ -4,7 +4,13 @@ import { parseGrid, mergeScores, computeRecord, dateKey } from "./parser.js";
 
 const app = document.getElementById("app");
 const params = new URLSearchParams(location.search);
-const teamSlug = params.get("team");
+
+// Routing: query params (?team=vfb, ?view=week) OR path-based URLs
+// (/t/vfb/, /week/) — the paths exist because some CMS HTML blocks strip
+// query strings from iframe src attributes.
+const pathTeam = location.pathname.match(/\/t\/([a-z]+)\/?$/);
+const teamSlug = params.get("team") || (pathTeam ? pathTeam[1] : null);
+const weekView = params.get("view") === "week" || /\/week\/?$/.test(location.pathname);
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const DOWS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -243,7 +249,9 @@ function renderLanding() {
   </header>
   <div class="landing">`;
 
-  const weekUrl = `${base}?view=week`;
+  // Path-based URLs in embed snippets: some CMS HTML blocks strip query
+  // strings from iframe src attributes.
+  const weekUrl = `${base}week/`;
   const weekIframe = `<iframe src="${weekUrl}" style="width:100%;height:820px;border:none;" title="${esc(SCHOOL.name)} Athletics — This Week" loading="lazy"></iframe>`;
   html += `<h2>All Teams</h2><table><tbody><tr>
     <td><a href="?view=week"><strong>This Week (all teams, today highlighted)</strong></a></td>
@@ -254,7 +262,7 @@ function renderLanding() {
   for (const season of SEASONS) {
     html += `<h2>${esc(season.label)}</h2><table><tbody>`;
     for (const t of season.teams) {
-      const url = `${base}?team=${t.slug}`;
+      const url = `${base}t/${t.slug}/`;
       const iframe = `<iframe src="${url}" style="width:100%;height:900px;border:none;" title="${esc(SCHOOL.name)} ${esc(t.name)} Schedule" loading="lazy"></iframe>`;
       html += `<tr>
         <td><a href="?team=${t.slug}"><strong>${esc(t.name)}</strong></a></td>
@@ -406,6 +414,6 @@ function timeSortKey(t) {
 
 // ---------------------------------------------------------------------- main
 
-if (params.get("view") === "week") renderWeek();
+if (weekView) renderWeek();
 else if (teamSlug) renderTeam(teamSlug);
 else renderLanding();
