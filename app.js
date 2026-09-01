@@ -325,6 +325,7 @@ async function renderWeek() {
 
   const today = new Date(); today.setHours(0, 0, 0, 0);
   let offset = parseInt(params.get("w"), 10) || 0;
+  let firstDraw = true;
 
   const draw = () => {
     // week starts Monday
@@ -392,6 +393,17 @@ async function renderWeek() {
       });
     });
     postHeight();
+
+    // On first load, jump straight to today's block so nobody has to scroll
+    // down to mid-week. window.scrollTo only moves this page's own viewport
+    // (scrollIntoView could also scroll the parent page around the iframe).
+    if (firstDraw) {
+      firstDraw = false;
+      const todayEl = app.querySelector(".week-day.today");
+      if (todayEl && offset === 0) window.scrollTo(0, Math.max(0, todayEl.offsetTop - 6));
+    } else {
+      window.scrollTo(0, 0); // week navigation: start each week at the top
+    }
   };
   draw();
 }
