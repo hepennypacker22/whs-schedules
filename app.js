@@ -375,7 +375,7 @@ async function renderWeek() {
             right = `<span class="time">${esc(g.time || "TBD")}</span>`;
           }
           html += `<div class="week-game">
-            <a class="team-chip" href="?team=${g.team.slug}" target="_top">${esc(g.team.short || g.team.name)}</a>
+            <a class="team-chip" href="${esc(g.team.page || `?team=${g.team.slug}`)}" target="_top">${esc(g.team.short || g.team.name)}</a>
             <span class="wg-opp">${g.away ? "at" : "vs"} <strong>${esc(g.opponent)}</strong>${g.venue ? ` <span class="wg-venue">· ${esc(g.venue)}</span>` : ""}</span>
             <span class="wg-right">${right}</span>
           </div>`;
