@@ -86,6 +86,12 @@ for (const season of SEASONS) {
       const nextData = extractNextData(await res.text());
       if (!nextData) throw new Error("no __NEXT_DATA__ found (page layout changed?)");
       const scores = parseContests(nextData);
+      // Canary: if the raw contests visibly contain W/L results but we parsed
+      // none, the page shape changed — fail loudly instead of syncing nothing.
+      const raw = JSON.stringify(nextData?.props?.pageProps?.contests || []);
+      if (!scores.length && /"[WL]",\d/.test(raw.replace(/",\s*/g, '",'))) {
+        throw new Error("contests contain results but none parsed (page shape changed?)");
+      }
       result.teams[team.slug] = scores;
       console.log(`${team.slug}: ${scores.length} result(s) from ${url}`);
     } catch (err) {
