@@ -31,9 +31,11 @@ function readTeamEntry(entry) {
       break;
     }
   }
-  // short display name: first string after the schedule-URL element
+  // short display name: first string after the team-URL element. (That URL
+  // used to end in /<season>/schedule/ but MaxPreps dropped the suffix in
+  // Sep 2026 — match any maxpreps.com team URL so both shapes work.)
   let name = null;
-  const urlIdx = entry.findIndex((x) => typeof x === "string" && x.includes("/schedule/"));
+  const urlIdx = entry.findIndex((x) => typeof x === "string" && /^https?:\/\/www\.maxpreps\.com\//.test(x));
   if (urlIdx !== -1 && typeof entry[urlIdx + 1] === "string") name = entry[urlIdx + 1];
   if (!name) return null;
   return { name: name.replace(/\*+$/, "").trim(), letter, score };
