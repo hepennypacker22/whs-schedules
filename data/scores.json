@@ -1,5 +1,5 @@
 {
- "generated": "2026-09-09T23:18:01.371Z",
+ "generated": "2026-09-11T23:17:41.528Z",
  "teams": {
   "gvsoc": [
    {
@@ -29,6 +29,13 @@
     "letter": "L",
     "us": 0,
     "them": 3
+   },
+   {
+    "date": "2026-09-11",
+    "opponent": "White River Valley",
+    "letter": "L",
+    "us": 1,
+    "them": 2
    }
   ],
   "fh": [
