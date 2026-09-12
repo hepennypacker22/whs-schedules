@@ -1,5 +1,5 @@
 {
- "generated": "2026-09-11T23:17:41.528Z",
+ "generated": "2026-09-12T20:35:48.300Z",
  "teams": {
   "gvsoc": [
    {
@@ -61,6 +61,13 @@
     "letter": "W",
     "us": 54,
     "them": 0
+   },
+   {
+    "date": "2026-09-12",
+    "opponent": "Mt. Abraham",
+    "letter": "L",
+    "us": 16,
+    "them": 34
    }
   ],
   "gvbb": [],
