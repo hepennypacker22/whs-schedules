@@ -1,5 +1,5 @@
 {
- "generated": "2026-09-12T20:35:48.300Z",
+ "generated": "2026-09-14T23:52:59.246Z",
  "teams": {
   "gvsoc": [
    {
@@ -35,6 +35,13 @@
     "opponent": "White River Valley",
     "letter": "L",
     "us": 1,
+    "them": 2
+   },
+   {
+    "date": "2026-09-14",
+    "opponent": "Rivendell Academy",
+    "letter": "W",
+    "us": 4,
     "them": 2
    }
   ],
