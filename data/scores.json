@@ -1,5 +1,5 @@
 {
- "generated": "2026-09-17T04:56:40.352Z",
+ "generated": "2026-09-18T04:47:58.775Z",
  "teams": {
   "gvsoc": [
    {
@@ -43,6 +43,13 @@
     "letter": "W",
     "us": 4,
     "them": 2
+   },
+   {
+    "date": "2026-09-17",
+    "opponent": "Leland & Gray",
+    "letter": "W",
+    "us": 1,
+    "them": 0
    }
   ],
   "fh": [
