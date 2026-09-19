@@ -24,9 +24,14 @@ jobs:
       - name: Fetch scores from MaxPreps
         run: node scripts/fetch-scores.mjs
       - name: Fetch coaches & trophy case from the Google Docs
-        # Don't let a docs hiccup block the score sync (and vice versa);
-        # the script leaves the existing teaminfo.json in place on failure.
-        run: node scripts/fetch-teaminfo.mjs || echo "::warning::teaminfo sync failed - keeping previous data"
+        id: teaminfo
+        # Don't let a docs hiccup block the score sync — the script leaves the
+        # existing teaminfo.json in place, the commit below still runs, and the
+        # failure is re-raised at the end of the job so the run goes red.
+        # (It used to only emit ::warning::, which kept the run green: link
+        # sharing on both docs was off from 2026-08-31 to 09-18 unnoticed.)
+        continue-on-error: true
+        run: node scripts/fetch-teaminfo.mjs
       - name: Commit if changed
         run: |
           if ! git diff --quiet data/ 2>/dev/null; then
@@ -43,3 +48,9 @@ jobs:
         # configured team column can't be found in a grid — e.g. a header was
         # renamed. Add the new spelling to that team's aliases in config.js.
         run: node scripts/test-parser.mjs
+      - name: Re-raise teaminfo sync failure
+        # Last, so the score commit and the grid check above always happen first.
+        if: ${{ !cancelled() && steps.teaminfo.outcome == 'failure' }}
+        run: |
+          echo "::error::Coaches/trophy sync failed - see the \"Fetch coaches & trophy case\" step. The previous data/teaminfo.json is still being served."
+          exit 1

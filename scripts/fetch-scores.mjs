@@ -10,10 +10,18 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SEASONS } from "../config.js";
+import { fetchWithRetry } from "./http.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(root, "data", "scores.json");
-const UA = "Mozilla/5.0 (compatible; WHS-Schedules/1.0; +https://whs.wsesu.net) school schedule sync";
+
+// Previous sync, used to skip no-op writes and to carry a team forward when its
+// fetch fails — otherwise one blocked request blanks that team on the live site
+// until the next good run.
+let previous = null;
+if (existsSync(OUT)) {
+  try { previous = JSON.parse(readFileSync(OUT, "utf8")); } catch { /* treat as absent */ }
+}
 
 function extractNextData(html) {
   const m = html.match(/<script id="__NEXT_DATA__" type="application\/json"[^>]*>(.*?)<\/script>/s);
@@ -75,14 +83,14 @@ function parseContests(nextData) {
 
 const result = { generated: new Date().toISOString(), teams: {} };
 let hadError = false;
+let fetchedAny = false; // a real fetch succeeded (carried-forward data does not count)
 
 for (const season of SEASONS) {
   for (const team of season.teams) {
     if (!team.maxpreps) continue;
     const url = `https://www.maxpreps.com${team.maxpreps}`;
     try {
-      const res = await fetch(url, { headers: { "user-agent": UA } });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const res = await fetchWithRetry(url);
       const nextData = extractNextData(await res.text());
       if (!nextData) throw new Error("no __NEXT_DATA__ found (page layout changed?)");
       const scores = parseContests(nextData);
@@ -93,17 +101,23 @@ for (const season of SEASONS) {
         throw new Error("contests contain results but none parsed (page shape changed?)");
       }
       result.teams[team.slug] = scores;
+      fetchedAny = true;
       console.log(`${team.slug}: ${scores.length} result(s) from ${url}`);
     } catch (err) {
       console.error(`${team.slug}: FAILED ${url} — ${err.message}`);
       hadError = true;
+      const carried = previous?.teams?.[team.slug];
+      if (carried?.length) {
+        result.teams[team.slug] = carried;
+        console.error(`${team.slug}: carrying ${carried.length} previous result(s) forward`);
+      }
     }
     await new Promise((r) => setTimeout(r, 1500)); // be polite
   }
 }
 
 // Never clobber good data with an empty/failed run.
-if (hadError && Object.values(result.teams).every((a) => !a.length) && existsSync(OUT)) {
+if (hadError && !fetchedAny && existsSync(OUT)) {
   console.error("All fetches empty/failed — keeping existing scores.json");
   process.exit(1);
 }
@@ -111,14 +125,9 @@ if (hadError && Object.values(result.teams).every((a) => !a.length) && existsSyn
 mkdirSync(dirname(OUT), { recursive: true });
 
 // Skip the write (and the downstream commit) when nothing but the timestamp changed.
-if (existsSync(OUT)) {
-  try {
-    const prev = JSON.parse(readFileSync(OUT, "utf8"));
-    if (JSON.stringify(prev.teams) === JSON.stringify(result.teams)) {
-      console.log("No score changes.");
-      process.exit(0);
-    }
-  } catch { /* rewrite */ }
+if (previous && JSON.stringify(previous.teams) === JSON.stringify(result.teams)) {
+  console.log("No score changes.");
+  process.exit(0);
 }
 writeFileSync(OUT, JSON.stringify(result, null, 1) + "\n");
 console.log(`Wrote ${OUT}`);

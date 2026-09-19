@@ -13,10 +13,10 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SEASONS, DOCS, docTxtUrl } from "../config.js";
+import { fetchWithRetry } from "./http.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(root, "data", "teaminfo.json");
-const UA = "Mozilla/5.0 (compatible; WHS-Schedules/1.0; +https://whs.wsesu.net) school schedule sync";
 
 const validSlugs = new Set(SEASONS.flatMap((s) => s.teams.map((t) => t.slug)));
 
@@ -77,9 +77,16 @@ export function parseTrophiesDoc(text, teams = {}) {
 }
 
 async function fetchDoc(name, docId) {
-  const res = await fetch(docTxtUrl(docId), { headers: { "user-agent": UA }, redirect: "follow" });
-  if (!res.ok) throw new Error(`${name} doc: HTTP ${res.status} (is it shared "Anyone with the link: Viewer"?)`);
-  return await res.text();
+  try {
+    return await (await fetchWithRetry(docTxtUrl(docId))).text();
+  } catch (err) {
+    // 401/403 here means link sharing was turned off — the doc still opens fine
+    // for signed-in editors, so this is invisible unless the run goes red.
+    const hint = /HTTP (401|403|404)/.test(err.message)
+      ? ` (is it shared "Anyone with the link: Viewer"?)`
+      : "";
+    throw new Error(`${name} doc: ${err.message}${hint}`);
+  }
 }
 
 // Script entry (skipped when imported by tests).
