@@ -1,5 +1,5 @@
 {
- "generated": "2026-09-18T04:47:58.775Z",
+ "generated": "2026-09-19T20:44:08.918Z",
  "teams": {
   "gvsoc": [
    {
@@ -50,6 +50,13 @@
     "letter": "W",
     "us": 1,
     "them": 0
+   },
+   {
+    "date": "2026-09-19",
+    "opponent": "Hartford",
+    "letter": "L",
+    "us": 0,
+    "them": 4
    }
   ],
   "fh": [
