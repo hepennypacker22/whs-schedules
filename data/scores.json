@@ -1,5 +1,5 @@
 {
- "generated": "2026-09-19T20:44:08.918Z",
+ "generated": "2026-09-20T16:10:49.130Z",
  "teams": {
   "gvsoc": [
    {
@@ -96,6 +96,13 @@
     "letter": "L",
     "us": 16,
     "them": 34
+   },
+   {
+    "date": "2026-09-19",
+    "opponent": "Mill River",
+    "letter": "L",
+    "us": 14,
+    "them": 32
    }
   ],
   "gvbb": [],
