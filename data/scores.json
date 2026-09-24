@@ -1,5 +1,5 @@
 {
- "generated": "2026-09-22T00:08:46.356Z",
+ "generated": "2026-09-24T04:56:16.624Z",
  "teams": {
   "gvsoc": [
    {
@@ -57,6 +57,13 @@
     "letter": "L",
     "us": 0,
     "them": 3
+   },
+   {
+    "date": "2026-09-23",
+    "opponent": "Rivendell Academy",
+    "letter": "W",
+    "us": 6,
+    "them": 0
    }
   ],
   "fh": [
