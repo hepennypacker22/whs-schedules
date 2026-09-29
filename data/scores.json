@@ -1,5 +1,5 @@
 {
- "generated": "2026-09-26T21:13:31.253Z",
+ "generated": "2026-09-29T22:19:05.393Z",
  "teams": {
   "gvsoc": [
    {
@@ -101,6 +101,13 @@
     "letter": "W",
     "us": 4,
     "them": 1
+   },
+   {
+    "date": "2026-09-29",
+    "opponent": "Otter Valley",
+    "letter": "L",
+    "us": 3,
+    "them": 4
    }
   ],
   "vfb": [
