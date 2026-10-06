@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-04T18:39:18.327Z",
+ "generated": "2026-10-06T22:40:22.686Z",
  "teams": {
   "gvsoc": [
    {
@@ -78,6 +78,13 @@
     "letter": "L",
     "us": 0,
     "them": 1
+   },
+   {
+    "date": "2026-10-06",
+    "opponent": "Green Mountain Union",
+    "letter": "W",
+    "us": 3,
+    "them": 0
    }
   ],
   "fh": [
@@ -122,6 +129,13 @@
     "letter": "W",
     "us": 1,
     "them": 0
+   },
+   {
+    "date": "2026-10-06",
+    "opponent": "Woodstock",
+    "letter": "L",
+    "us": 2,
+    "them": 5
    }
   ],
   "vfb": [
