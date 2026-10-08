@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-06T22:40:22.686Z",
+ "generated": "2026-10-08T01:02:14.607Z",
  "teams": {
   "gvsoc": [
    {
@@ -136,6 +136,13 @@
     "letter": "L",
     "us": 2,
     "them": 5
+   },
+   {
+    "date": "2026-10-07",
+    "opponent": "Fair Haven",
+    "letter": "T",
+    "us": 3,
+    "them": 3
    }
   ],
   "vfb": [
