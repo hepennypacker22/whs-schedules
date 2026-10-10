@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-10T00:55:04.201Z",
+ "generated": "2026-10-10T09:54:33.511Z",
  "teams": {
   "gvsoc": [
    {
@@ -187,6 +187,13 @@
     "letter": "L",
     "us": 0,
     "them": 10
+   },
+   {
+    "date": "2026-10-09",
+    "opponent": "Springfield",
+    "letter": "W",
+    "us": 15,
+    "them": 12
    }
   ],
   "gvbb": [],
