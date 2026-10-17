@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-16T23:39:14.529Z",
+ "generated": "2026-10-17T20:39:15.835Z",
  "teams": {
   "gvsoc": [
    {
@@ -178,6 +178,13 @@
     "letter": "L",
     "us": 0,
     "them": 2
+   },
+   {
+    "date": "2026-10-17",
+    "opponent": "Bellows Falls",
+    "letter": "L",
+    "us": 0,
+    "them": 7
    }
   ],
   "vfb": [
