@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-21T21:45:42.832Z",
+ "generated": "2026-10-22T21:39:42.871Z",
  "teams": {
   "gvsoc": [
    {
@@ -192,6 +192,13 @@
     "letter": "L",
     "us": 0,
     "them": 7
+   },
+   {
+    "date": "2026-10-22",
+    "opponent": "Stowe",
+    "letter": "L",
+    "us": 2,
+    "them": 3
    }
   ],
   "vfb": [
